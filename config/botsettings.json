@@ -1,0 +1,58 @@
+{
+    "bots": [
+        {
+            "cid": "nikhilBot",
+            "name": "Nikhil Bot",
+            "appClientId": "63737da91f16cd6951212e4c",
+            "appClientSecret": "38d22d85b670fa7b",
+            "appid": "b1d94eaf-d6f3-4018-a684-a1c5fb7d8ca1",
+            "passwd": "ahy8Q~w-PanCFqlI24o4UsDTqe8.49-WlyS4ca8l",
+            "jamesonUsername": "teams",
+            "jamesonPassword": "tJc3wWxVJstn32aZ!",
+            "externalhost": "https://office.kloudspot.com/advanced",
+            "baseUrl": "https://2dcf-106-51-88-195.ngrok.io",
+            "host": "https://2dcf-106-51-88-195.ngrok.io",
+            "connectionName": "kspotifyConnectionV6",
+            "zoomID": "4_hK9FJ5R8mMiL0oQTn4HA",
+            "zoomSecret": "2SpEcPOwNOxL44CWR4ldHuiQPawnJYnl",
+            "enabled": true,
+            "language": "en",
+            "functions": [
+                "location",
+                "find",
+                "locate",
+                "search",
+                "apstatus",
+                "contacttracing",
+                "displayaccess"
+            ]
+        },
+        {
+            "cid": "pawanBot",
+            "name": "Pawan Bot",
+            "appClientId": "63737da91f16cd6951212e4c",
+            "appClientSecret": "38d22d85b670fa7b",
+            "appid": "751ca204-eac6-450c-9f03-3ee2cac9c167",
+            "passwd": "Uew8Q~RA4b-QP2zg6ZM9p7jvCqnv~Gz5KOHLHb.~",
+            "jamesonUsername": "teams",
+            "jamesonPassword": "tJc3wWxVJstn32aZ!",
+            "externalhost": "https://office.kloudspot.com/advanced",
+            "baseUrl": "https://fb8d-106-51-88-195.ngrok.io",
+            "host": "https://fb8d-106-51-88-195.ngrok.io",
+            "connectionName" :"kspotifyConnectionV6",
+            "zoomID": "4_hK9FJ5R8mMiL0oQTn4HA",
+            "zoomSecret": "2SpEcPOwNOxL44CWR4ldHuiQPawnJYnl",
+            "enabled": true,
+            "language": "en",
+            "functions": [
+                "location",
+                "find",
+                "locate",
+                "search",
+                "apstatus",
+                "contacttracing",
+                "displayaccess"
+            ]
+        }
+    ]
+}

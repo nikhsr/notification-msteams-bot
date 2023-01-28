@@ -1,0 +1,163 @@
+<html>
+<head>
+    <title>Zoom powered by KloudBot</title>
+    <meta charset="utf-8" />
+    <link type="text/css" rel="stylesheet" href="https://source.zoom.us/1.8.6/css/bootstrap.css" />
+    <link type="text/css" rel="stylesheet" href="https://source.zoom.us/1.8.6/css/react-select.css" />
+    <meta name="format-detection" content="telephone=no">
+    <style>
+    	body {
+    		background-color: black;
+    	}
+    	.intro-msg {
+    		position: fixed;
+		    top: 50%;
+		    transform: translateY(-50%);
+		    text-align: center;
+		    width: 100%;
+		    background-color: black;
+    		color: white;
+		}
+		h2 {
+			font-size: 4vw;
+		}
+		.powered-by-msg {
+			position: fixed;
+			bottom:2em;
+			right: 2em;
+			color: white;
+			font-size: 2vw;
+		}
+		.blink {
+			animation: blinker 1s linear infinite;
+		}
+		
+		@keyframes blinker {  
+			50% { opacity: 0.0; }
+		}
+		.gly-spin {
+		  -webkit-animation: spin 2s infinite linear;
+		  -moz-animation: spin 2s infinite linear;
+		  -o-animation: spin 2s infinite linear;
+		  animation: spin 2s infinite linear;
+		}
+		@-moz-keyframes spin {
+		  0% {
+		    -moz-transform: rotate(0deg);
+		  }
+		  100% {
+		    -moz-transform: rotate(359deg);
+		  }
+		}
+		@-webkit-keyframes spin {
+		  0% {
+		    -webkit-transform: rotate(0deg);
+		  }
+		  100% {
+		    -webkit-transform: rotate(359deg);
+		  }
+		}
+		@-o-keyframes spin {
+		  0% {
+		    -o-transform: rotate(0deg);
+		  }
+		  100% {
+		    -o-transform: rotate(359deg);
+		  }
+		}
+		@keyframes spin {
+		  0% {
+		    -webkit-transform: rotate(0deg);
+		    transform: rotate(0deg);
+		  }
+		  100% {
+		    -webkit-transform: rotate(359deg);
+		    transform: rotate(359deg);
+		  }
+		}
+    </style>
+</head>
+<body>
+
+    <nav id="nav-tool"class="navbar navbar-inverse navbar-fixed-top hide">
+        <div class="container">
+            <div class="navbar-header">
+                <a class="navbar-brand" href="#">MyMeetingApp</a>
+            </div>
+            <div id="navbar">
+                <form class="navbar-form navbar-right" id="meeting_form">
+                    <div class="form-group">
+                        <input type="text" name="display_name" id="display_name" value="KloudDisplay" placeholder="Name" class="form-control" required>
+                    </div>
+                    <div class="form-group">
+                    	<!-- KS: 7537650511 -->
+                    	<!-- Uday: 2433777466 -->
+                        <input type="text" name="meeting_number" id="meeting_number" value="2433777466" placeholder="Meeting Number" class="form-control" required>
+                    </div>
+                    <div class="form-group">
+                        <input type="text" name="meeting_pwd" id="meeting_pwd" value="" placeholder="Meeting Password" class="form-control">
+                    </div>
+                    <button type="submit" class="btn btn-primary" id="join_meeting">Join</button>
+                </form>
+            </div><!--/.navbar-collapse -->
+        </div>
+    </nav>
+    
+    <div class="intro-msg">
+    	<h2 style="margin: 0px"><span class="glyphicon glyphicon glyphicon-refresh gly-spin"></span>&nbsp;&nbsp;Logging into Zoom meeting..</h2>
+    </div>
+
+	<div class="powered-by-msg">Powered by Kloudspot</div>
+
+    <script src="https://source.zoom.us/2.3.5/lib/vendor/react.min.js"></script>
+    <script src="https://source.zoom.us/2.3.5/lib/vendor/react-dom.min.js"></script>
+    <script src="https://source.zoom.us/2.3.5/lib/vendor/redux.min.js"></script>
+    <script src="https://source.zoom.us/2.3.5/lib/vendor/redux-thunk.min.js"></script>
+    <script src="https://source.zoom.us/2.3.5/lib/vendor/lodash.min.js"></script>
+    <script src="https://source.zoom.us/zoom-meeting-2.3.5.min.js"></script>
+    <script src="https://code.jquery.com/jquery-1.11.0.min.js"></script>
+    <script src="https://source.zoom.us/zoom-meeting-2.3.5.min.js"></script>
+    <script src="scripts/zoom.js"></script>
+    
+    <script>
+        //pre load wasm when user type meeting number. it can save time when use joining meeting.
+        function requestWasmFunc(url) {
+            var xmlhttp;
+            if (window.ActiveXObject) xmlhttp = new ActiveXObject('Microsoft.XMLHTTP');
+            else xmlhttp = new XMLHttpRequest();
+
+            xmlhttp.onreadystatechange = function () {
+                if (this.readyState == 4 && this.status == 200) {
+                    try {
+                        console.log('pre load wasm success:', url);
+                    } catch (e) {
+                        console.warn('pre load wasm fail:', url);
+                    }
+                }
+            };
+
+            xmlhttp.open("GET", url, true);
+            xmlhttp.send();
+        }
+
+        var userAgent = navigator.userAgent.toLowerCase();
+        var isOpera = /opera|opr\/[\d]+/.test(userAgent);
+        var isIE = !isOpera && /(msie|trident)/.test(userAgent);
+
+        var baseUrl = window.location.href;
+        baseUrl = baseUrl.substring(0, baseUrl.lastIndexOf('/'));
+        console.log(baseUrl);
+        
+        var isSupportAv = true;
+        if (isSupportAv && !isIE) {
+            var fetchAudioUrl = 'scripts/lib/av/audio.encode.wasm';
+            var fetchVideoUrl = 'scripts/lib/av/video.decode.wasm';
+            requestWasmFunc(fetchAudioUrl);
+            requestWasmFunc(fetchVideoUrl);
+        }
+
+        var fetchSharingUrl = 'scripts/lib/av/sharing.wasm';
+        requestWasmFunc(fetchSharingUrl);
+    </script>
+</body>
+</html>

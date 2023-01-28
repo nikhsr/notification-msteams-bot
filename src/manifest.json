@@ -1,0 +1,144 @@
+{
+    "$schema": "https://developer.microsoft.com/en-us/json-schemas/teams/v1.5/MicrosoftTeams.schema.json",
+    "manifestVersion": "1.5",
+    "version": "1.0.0",
+    "id": "61b8699e-7f92-4db5-adc6-67c0071f9802",
+    "packageName": "com.kloudspot.analytics",
+    "developer": {
+        "name": "Uday Pyda",
+        "websiteUrl": "https://www.kloudspot.com",
+        "privacyUrl": "https://www.kloudspot.com/privacy-policy-short/",
+        "termsOfUseUrl": "https://www.kloudspot.com/privacy-policy-short/"
+    },
+    "icons": {
+        "color": "color.png",
+        "outline": "outline.png"
+    },
+    "name": {
+        "short": "Kloudspot",
+        "full": "Kloudspot Location Services"
+    },
+    "description": {
+        "short": "Kloudspot Location Services",
+        "full": "Interface with Kloudspot from within your Microsoft Teams App either on Mobile or Web to get real-time location of devices, point of interest search, footfall summary, dwelltime summary and much more.."
+    },
+    "accentColor": "#F3F2F1",
+    "configurableTabs": [
+        {
+            "configurationUrl": "http://c29c-106-51-88-195.ngrok.io/configure",
+            "canUpdateConfiguration": true,
+            "scopes": [
+                "team"
+            ]
+        }
+    ],
+    "bots": [
+        {
+            "botId": "61b8699e-7f92-4db5-adc6-67c0071f9802",
+            "scopes": [
+                "personal",
+                "team",
+                "groupchat"
+            ],
+            "commandLists": [
+                {
+                    "scopes": [
+                        "personal"
+                    ],
+                    "commands": [
+                        {
+                            "title": "locate",
+                            "description": "Locate a user"
+                        },
+                        {
+                            "title": "help",
+                            "description": "Get help with the app"
+                        },
+                        {
+                            "title": "apstatus",
+                            "description": "Check Status of APs"
+                        }
+                    ]
+                },
+                {
+                    "scopes": [
+                        "team"
+                    ],
+                    "commands": [
+                        {
+                            "title": "locate",
+                            "description": "Locate a user"
+                        },
+                        {
+                            "title": "help",
+                            "description": "Get help with the app"
+                        },
+                        {
+                            "title": "apstatus",
+                            "description": "Check Status of APs"
+                        }
+                    ]
+                },
+                {
+                    "scopes": [
+                        "groupchat"
+                    ],
+                    "commands": [
+                        {
+                            "title": "help",
+                            "description": "Get help with the app"
+                        },
+                        {
+                            "title": "locate",
+                            "description": "Locate a user"
+                        },
+                        {
+                            "title": "apstatus",
+                            "description": "Check Status of APs"
+                        }
+                    ]
+                }
+            ],
+            "supportsFiles": false,
+            "isNotificationOnly": false
+        }
+    ],
+    "composeExtensions": [
+        {
+            "botId": "61b8699e-7f92-4db5-adc6-67c0071f9802",
+            "canUpdateConfiguration": true,
+            "commands": [
+                {
+                    "id": "locate",
+                    "type": "query",
+                    "title": "Locate",
+                    "description": "Locate a device or user",
+                    "initialRun": true,
+                    "fetchTask": false,
+                    "context": [
+                        "commandBox",
+                        "compose"
+                    ],
+                    "parameters": [
+                        {
+                            "name": "param1",
+                            "title": "Parameter",
+                            "description": "Locate a user",
+                            "inputType": "text"
+                        }
+                    ]
+                }
+            ]
+        }
+    ],
+    "permissions": [
+        "identity",
+        "messageTeamMembers"
+    ],
+    "validDomains": [
+        "490c-171-48-62-208.ngrok.io",
+        "office.kloudspot.com",
+        "jamson1.kloudspot.com",
+        "c29c-106-51-88-195.ngrok.io"
+    ]
+}

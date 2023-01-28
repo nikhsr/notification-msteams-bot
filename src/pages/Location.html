@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Location</title>
+    <script src="https://statics.teams.cdn.office.net/sdk/v1.5.2/js/MicrosoftTeams.min.js"
+        asp-append-version="true"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <link rel="stylesheet/scss" src="./styles/success.scss">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <script src="./scripts/i18n-plugin/CLDRPluralRuleParser.js"></script>
+    <script src="./scripts/i18n-plugin/jquery.i18n.js"></script>
+    <script src="./scripts/i18n-plugin/jquery.i18n.messagestore.js"></script>
+    <script src="./scripts/i18n-plugin/jquery.i18n.fallbacks.js"></script>
+    <script src="./scripts/i18n-plugin/jquery.i18n.language.js"></script>
+    <script src="./scripts/i18n-plugin/jquery.i18n.parser.js"></script>
+    <script src="./scripts/i18n-plugin/jquery.i18n.emitter.js"></script>
+    <script src="./scripts/i18n-plugin/jquery.i18n.emitter.bidi.js"></script>
+    <style>
+        body {
+            margin: 0;
+        }
+        .color-line {
+        background: #f7f9fa;
+        height: 6px;
+        background-image: -webkit-linear-gradient(left, #34495e, #34495e 25%, #9b59b6 25%, #9b59b6 35%, #3498db 35%, #3498db 45%, #62cb31 45%, #62cb31 55%, #ffb606 55%, #ffb606 65%, #e67e22 65%, #e67e22 75%, #e74c3c 85%, #e74c3c 85%, #c0392b 85%, #c0392b 100%);
+        background-image: -moz-linear-gradient(left, #34495e, #34495e 25%, #9b59b6 25%, #9b59b6 35%, #3498db 35%, #3498db 45%, #62cb31 45%, #62cb31 55%, #ffb606 55%, #ffb606 65%, #e67e22 65%, #e67e22 75%, #e74c3c 85%, #e74c3c 85%, #c0392b 85%, #c0392b 100%);
+        background-image: -ms-linear-gradient(left, #34495e, #34495e 25%, #9b59b6 25%, #9b59b6 35%, #3498db 35%, #3498db 45%, #62cb31 45%, #62cb31 55%, #ffb606 55%, #ffb606 65%, #e67e22 65%, #e67e22 75%, #e74c3c 85%, #e74c3c 85%, #c0392b 85%, #c0392b 100%);
+        background-image: linear-gradient(to right, #34495e, #34495e 25%, #9b59b6 25%, #9b59b6 35%, #3498db 35%, #3498db 45%, #62cb31 45%, #62cb31 55%, #ffb606 55%, #ffb606 65%, #e67e22 65%, #e67e22 75%, #e74c3c 85%, #e74c3c 85%, #c0392b 85%, #c0392b 100%);
+        background-size: 100% 6px;
+        background-position: 50% 100%;
+        background-repeat: no-repeat
+        }
+
+
+        iframe {
+            width: 80%;
+            height: 510px;
+            margin: 0px auto;
+            display: block;
+            border-style: none;
+            padding-top: 50px;
+        }
+
+        .connect {
+	    
+	    height: 40%;
+	    font-size: 1em;
+	    background-color: #24a0ed;
+	    color: #FFFFFF;
+	    margin-top: -5px;
+	    border: 0px;
+	    border-radius: 0px;
+	    margin-top: 20px;
+	}
+    .border {
+        border-style: solid;
+        border-color: #00586e;
+    }
+        .loader {
+            border: 16px solid #f3f3f3;
+            /* Light grey */
+            border-top: 16px solid #3498db;
+            /* Blue */
+            border-radius: 50%;
+            width: 120px;
+            height: 120px;
+            animation: spin 2s linear infinite;
+        }
+        hr {
+            border: 2px solid rgb(0, 88, 139);
+        }
+        @keyframes spin {
+            0% {
+                transform: rotate(0deg);
+            }
+
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div id="master" class="color-line">
+        
+        <div id="mainPage" class="col-md-12 text-center">
+            <iframe id="niframe" src='' frameborder="0"></iframe><br>
+            <img id="mapImg" src='' width="80%" height="80%"/><br>
+            <button type="button" id="publish" class="btn connect" data-i18n="publish_display">Publish on Display Terminal</button>
+
+        </div>
+
+
+        <!-- Modal -->
+        <div class="modal fade" id="devicesModal" role="dialog">
+            <div class="modal-dialog modal-dialog-centered modal-sm">
+                <div class="modal-content" style="width: fit-content;">
+                    <div class="modal-header">
+                        <h4 class="modal-title text-center" data-i18n="choose_display">Choose Nearby Display Device</h4>
+                    </div>
+                    <div id="modelContent" class="modal-body text-center ">
+                        <div class="btn-group-vertical" id="displayTerminals">
+
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+        </div> 
+        <br>
+    </div>
+    <script>
+
+
+        this.swipeLeftCount = 0
+        this.swipeRightCount = 0;
+        document.addEventListener("DOMContentLoaded", function (event) {
+            document.addEventListener('touchstart', handleTouchStart, false);
+            document.addEventListener('touchmove', handleTouchMove, false);
+            var xDown = null;
+            var yDown = null;
+            function getTouches(evt) {
+                return evt.touches ||             // browser API
+                    evt.originalEvent.touches;
+            }
+            function handleTouchStart(evt) {
+                const firstTouch = getTouches(evt)[0];
+                xDown = firstTouch.clientX;
+                yDown = firstTouch.clientY;
+            };
+            function handleTouchMove(evt) {
+                if (!xDown || !yDown) {
+                    return;
+                }
+                var xUp = evt.touches[0].clientX;
+                var yUp = evt.touches[0].clientY;
+                var xDiff = xDown - xUp;
+                var yDiff = yDown - yUp;
+                if (Math.abs(xDiff) > Math.abs(yDiff)) {
+                    if (xDiff > 0) {
+                        ++this.swipeRightCount;
+                    } else {
+                        /* left swipe */
+                        ++this.swipeLeftCount;
+                        this.initiatePublish();
+                    }
+                }
+
+                /* reset values */
+                xDown = null;
+                yDown = null;
+            };
+            //var hash = window.location.hash;
+
+            // Handle the Esc key
+            document.onkeyup = function (event) {
+                if ((event.key === 27) || (event.key === "Escape")) {
+                    microsoftTeams.tasks.submitTask(null); //- this will return an err object to the completionHandler()
+                }
+            }
+        });
+
+        $(document).ready(function () {
+            microsoftTeams.initialize();
+
+            /* Storing user's device details in a variable*/
+            let details = navigator.userAgent;
+
+            /* Creating a regular expression 
+            containing some mobile devices keywords 
+            to search it in details string*/
+            let regexp = /android|iphone|kindle|ipad/i;
+
+            /* Using test() method to search regexp in details
+            it returns boolean value*/
+            var webPath=window.location.href.split("?")[0].split("/");
+
+            webPath.pop();
+            let newImgPath=webPath.join("/");
+            let isMobileDevice = regexp.test(details);
+            const params = new URLSearchParams(window.location.search);
+            this.decodedUrl = window.atob(params.getAll('url'));
+            this.cid = params.get('cid');
+            this.caller = window.atob(params.get('caller'));
+            this.contentPath=params.get('contentPath');
+            var displayTerminals = [];
+            this.payload = {
+                content: this.decodedUrl,
+            }
+            $.i18n()
+            .load({
+                en: `./scripts/locales/en.json`,
+                ja: `./scripts/locales/ja.json`,
+                hi: `./scripts/locales/hi.json`,
+            })
+            .done(function () {
+                $.i18n().locale = params.get('lang');
+                $.i18n().options.fallbackLocale = params.get('lang');
+                console.log($.i18n().locale, $.i18n());
+                $('html').i18n();
+            });
+
+            if (isMobileDevice) {
+                $("#mapImg").hide();
+                document.getElementById("niframe").setAttribute("src", this.decodedUrl);
+            } else {
+    
+                $("#niframe").hide();
+                document.getElementById("mapImg").setAttribute("src",newImgPath+"/tmpResources/"+this.contentPath);
+            }
+           
+            $("#publish").click(() => {
+
+                this.initiatePublish();
+
+            })
+
+            this.initiatePublish = () => {
+                getAllDisplaysinZone(this.zoneID, this.cid, this.caller);
+            }
+            this.sendPublishRequest = (index) => {
+
+                var pay = {
+                    content: this.decodedUrl,
+                    id: displayTerminals[index]["id"],
+                    displayTime: 10*60 //default 
+                }
+                publish(pay, this.cid);
+            }
+
+
+            function getAllDisplaysinZone(zoneID, cid, caller) {
+                document.getElementById("modelContent").innerHTML = "<div class='btn-group-vertical' id='displayTerminals'></div>";
+                document.getElementById("displayTerminals").innerHTML = '<div class="loader"></div>';
+                displayTerminals = [];
+                $("#devicesModal").modal();
+                $.ajax(
+                    {
+                        type: "GET",
+                        url: newImgPath+"/getdisplays/" + cid + "?caller=" + caller,
+                        contentType: "application/json; charset=utf-8",
+                        crossDomain: true,
+                        dataType: "json",
+                        success: function (data, status, jqXHR) {
+                            var dataT = data.data;
+                            var disData = dataT.map((e) => {
+                                return {
+                                    id: e.id,
+                                    name: e.name,
+                                    type: e.type
+                                }
+                            });
+                           var dsData = disData.filter(d=> { 
+                               return d.type=="display_terminal";
+                           });
+                           console.log(dsData)
+                            var htmlRendered = [];
+                            dsData.forEach((device, index) => {
+                                displayTerminals.push(device);
+                                htmlRendered.push(`<button type="button" class="btn btn-outline-success" style="margin: 8px; background-color: #5cb85c; color: white;" onclick="sendPublishRequest(` + index + `)">` + device.name + `</button>`)
+                                console.log(htmlRendered)
+                            })
+                            document.getElementById("displayTerminals").innerHTML = htmlRendered.join("");
+
+                        },
+                        error: function (jqXHR, status) {
+                            console.log(jqXHR);
+                            document.getElementById("displayTerminals").innerHTML = '<div>' + jqXHR.responseJSON.data + '</div>';
+                        }
+                    })
+
+            }
+            //Adding API calls 
+            function publish(payload, cid) {
+                
+                document.getElementById("displayTerminals").innerHTML = '<div class="loader"></div>';
+                if (payload) {
+                    $.ajax(
+                        {
+                            type: "POST",
+                            url: newImgPath+"/display/publish/" + cid,
+                            data: JSON.stringify(payload),
+                            contentType: "application/json; charset=utf-8",
+                            crossDomain: true,
+                            dataType: "json",
+                            success: function (data, status, jqXHR) {
+                                document.getElementById("modelContent").innerHTML = '<img src="./images/success.png"/><br><br><h5 data-i18n="publish_success">Successfully published to the Display</h5>';
+                            },
+                            error: function (jqXHR, status) {
+                                // error handler
+                                console.log(jqXHR);
+                                document.getElementById("displayTerminals").innerHTML = '<div>' + jqXHR.responseJSON.data + '</div>';
+                            }
+                        })
+                }
+            }
+        });
+    </script>
+
+</body>
+
+</html>

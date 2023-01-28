@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Welcome</title>
+    <script src="https://statics.teams.cdn.office.net/sdk/v1.5.2/js/MicrosoftTeams.min.js"
+        asp-append-version="true"></script>
+    <script src="scripts/swipe.js"></script>
+    <link rel="stylesheet" href="//code.jquery.com/mobile/1.5.0-alpha.1/jquery.mobile-1.5.0-alpha.1.min.css">
+    <script src="//code.jquery.com/jquery-3.2.1.min.js"></script>
+    <script src="//code.jquery.com/mobile/1.5.0-alpha.1/jquery.mobile-1.5.0-alpha.1.min.js"></script>
+    <script src="./scripts/i18n-plugin/CLDRPluralRuleParser.js"></script>
+    <script src="./scripts/i18n-plugin/jquery.i18n.js"></script>
+    <script src="./scripts/i18n-plugin/jquery.i18n.messagestore.js"></script>
+    <script src="./scripts/i18n-plugin/jquery.i18n.fallbacks.js"></script>
+    <script src="./scripts/i18n-plugin/jquery.i18n.language.js"></script>
+    <script src="./scripts/i18n-plugin/jquery.i18n.parser.js"></script>
+    <script src="./scripts/i18n-plugin/jquery.i18n.emitter.js"></script>
+    <script src="./scripts/i18n-plugin/jquery.i18n.emitter.bidi.js"></script>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <style>
+        div {
+            padding: 15px;
+        }
+    </style>
+
+</head>
+
+<body>
+
+    <div id="help">
+        <h2 data-i18n="help_wait">Hello there.. I am your Kloudspot Analytics Bot. Here are a few things you can ask me..</h2>
+        <h2 data-i18n="apstatus">AP Status</h2>
+
+        <span data-i18n="apstatus_desc_1">Gets you a list of all APs along with their statuses. Some of the sample commands I understand -</span>
+        <br><b>apstatus</b>: <span data-i18n="apstatus_desc_2">Gives a list of all APs along with their statues</span><br><b>apstatus up</b>: <span data-i18n="apstatus_desc_3">Gives a list of all
+            APs that are currently up</span> <br><b>apstatus down</b>: <span data-i18n="apstatus_desc_4">Gives a list of all APs that are currently
+                down</span><br><b>apstatus <MAC></b>: <span data-i18n="apstatus_desc_5"> Gives the status of a particular AP </span>
+
+        <br>
+
+        <h2 data-i18n="location">Location</h2>
+
+        <span data-i18n="location_desc_1">Get information about a site, floor or zone. Some of the sample commands I understand -</span>
+        <br><b>location list</b>: <span data-i18n="location_desc_2">Gives a list of all locations in the system</span> 
+        <br><b>location show</b> : <span data-i18n="location_desc_2">Gives a list of all locations in the system</span>
+        <br><b>location print</b> : <span data-i18n="location_desc_2">Gives a list of all locations in the system</span>
+        <br><b>location 1</b> : <span data-i18n="location_desc_4">Gets information about the 1st location in the list</span>
+        <br><b>location 1 footfall</b> : <span data-i18n="location_desc_5">Get the last 5 mins footfall information for the <b>1</b>st location in the list</span>
+        <br><b>location 3 dwelltime</b> : <span data-i18n="location_desc_6">Get today's average dwelltime for the <b>3</b>rd location in the list</span>
+        <br><b>location 3 heatmap</b> : <span data-i18n="location_heatmap">Get the heatmap for the given location (typically used for floors)</span>
+        <br><b>location 3 userchart</b> : <span data-i18n="location_userchart">Displays a chart that shows the guest and connected device counts at the location</span>
+        <br><b>location 3 footfallcalendar</b> : <span data-i18n="location_footfallcalendar">Displays a calendar view of the device counts by day</span>
+        <br><b>location 3 pathdistribution</b> : <span data-i18n="location_pathdistribution">Displays the traffic flow from each zone to all the other zones at a given location</span>
+        <br><b>location 3 outboundtraffic</b> : <span data-i18n="location_outboundtraffic">Displays the outbound traffic flow at a given location</span>
+        <br><b>location 3 inboundtraffic</b> : <span data-i18n="location_inboundtraffic">Displays the inbound traffic flow at a given location</span>
+        <br><b>location 3 dwelltimechart</b> : <span data-i18n="location_dwelltimechart">Displays a chart that shows the average dwelltimes of all the zones within the selected location</span>
+        <br><b>location 3 repeatuserchart</b> : <span data-i18n="location_repeatuserchart">Displays a chart displaying the count of repeat users on a per-zone basis at any location</span>
+        <br><b>location 3 camerademographicschart</b> : <span data-i18n="location_camerademographicschart">Displays a chart of demographics captured by KloudVision Cameras</span>
+        <br><b>location 3 cameraoccupancychart</b> : <span data-i18n="location_cameraoccupancychart">Displays camera based occupancy metrics at a given location</span>
+        <br><b>location 3 livefeed</b> : <span data-i18n="location_livefeed">Shows a real-time snapshot of the feed from the camera at the given location</span>
+        <br><b>location 3 liveheatmap</b> : <span data-i18n="location_liveheatmap">Live user heatmap camera</span>
+        <br><b>location 3 trends</b> : <span data-i18n="location_trends">Human Characteristics Trends</span>
+        <br><b>location 3 demographics</b> : <span data-i18n="location_demographics">Camera User Trend</span>
+        <br><b>location 3 details</b> : <span data-i18n="location_details">Camera Demographics Trend</span>
+
+        <br>
+        <h2 data-i18n="find">Find</h2>
+        <span data-i18n="find_desc_1">You can locate a device on a map</span>
+        Eg: <b>find john:</b> <span data-i18n="find_desc_2">Gives the last known location of the devices that match the keyword 'john'</span>
+    </div>
+    <div id="apstatus">
+
+        <h2 data-i18n="apstatus">AP Status</h2>
+        <span data-i18n="apstatus_desc_1">Gets you a list of all APs along with their statuses. Some of the sample commands I understand -</span>
+        <br><b>apstatus</b>: <span data-i18n="apstatus_desc_2">Gives a list of all APs along with their statues</span><br><b>apstatus up</b>: <span data-i18n="apstatus_desc_3">Gives a list of all
+            APs that are currently up</span> <br><b>apstatus down</b>: <span data-i18n="apstatus_desc_4">Gives a list of all APs that are currently
+                down</span><br><b>apstatus <MAC></b>: <span data-i18n="apstatus_desc_5"> Gives the status of a particular AP </span>
+
+    </div>
+    <div id="find">
+
+        <h2 data-i18n="find">Find</h2>
+        <span data-i18n="find_desc_1">You can locate a device on a map</span>
+        Eg: <b>find john:</b> <span data-i18n="find_desc_2">Gives the last known location of the devices that match the keyword 'john'</span>
+
+    </div>
+    <div id="location">
+
+        <h2 data-i18n="location">Location</h2>
+
+        <span data-i18n="location_desc_1">Get information about a site, floor or zone. Some of the sample commands I understand -</span>
+        <br><b>location list</b>: <span data-i18n="location_desc_2">Gives a list of all locations in the system</span> 
+        <br><b>location show</b> : <span data-i18n="location_desc_2">Gives a list of all locations in the system</span>
+        <br><b>location print</b> : <span data-i18n="location_desc_2">Gives a list of all locations in the system</span>
+        <br><b>location 1</b> : <span data-i18n="location_desc_4">Gets information about the 1st location in the list</span>
+        <br><b>location 1 footfall</b> : <span data-i18n="location_desc_5">Get the last 5 mins footfall information for the <b>1</b>st location in the list</span>
+        <br><b>location 3 dwelltime</b> : <span data-i18n="location_desc_6">Get today's average dwelltime for the <b>3</b>rd location in the list</span>
+        <br><b>location 3 heatmap</b> : <span data-i18n="location_heatmap">Get the heatmap for the given location (typically used for floors)</span>
+        <br><b>location 3 userchart</b> : <span data-i18n="location_userchart">Displays a chart that shows the guest and connected device counts at the location</span>
+        <br><b>location 3 footfallcalendar</b> : <span data-i18n="location_footfallcalendar">Displays a calendar view of the device counts by day</span>
+        <br><b>location 3 pathdistribution</b> : <span data-i18n="location_pathdistribution">Displays the traffic flow from each zone to all the other zones at a given location</span>
+        <br><b>location 3 outboundtraffic</b> : <span data-i18n="location_outboundtraffic">Displays the outbound traffic flow at a given location</span>
+        <br><b>location 3 inboundtraffic</b> : <span data-i18n="location_inboundtraffic">Displays the inbound traffic flow at a given location</span>
+        <br><b>location 3 dwelltimechart</b> : <span data-i18n="location_dwelltimechart">Displays a chart that shows the average dwelltimes of all the zones within the selected location</span>
+        <br><b>location 3 repeatuserchart</b> : <span data-i18n="location_repeatuserchart">Displays a chart displaying the count of repeat users on a per-zone basis at any location</span>
+        <br><b>location 3 camerademographicschart</b> : <span data-i18n="location_camerademographicschart">Displays a chart of demographics captured by KloudVision Cameras</span>
+        <br><b>location 3 cameraoccupancychart</b> : <span data-i18n="location_cameraoccupancychart">Displays camera based occupancy metrics at a given location</span>
+        <br><b>location 3 livefeed</b> : <span data-i18n="location_livefeed">Shows a real-time snapshot of the feed from the camera at the given location</span>
+        <br><b>location 3 liveheatmap</b> : <span data-i18n="location_liveheatmap">Live user heatmap camera</span>
+        <br><b>location 3 trends</b> : <span data-i18n="location_trends">Human Characteristics Trends</span>
+        <br><b>location 3 demographics</b> : <span data-i18n="location_demographics">Camera User Trend</span>
+        <br><b>location 3 details</b> : <span data-i18n="location_details">Camera Demographics Trend</span>
+
+    </div>
+
+    <script>
+
+        $(document).ready(function () {
+            microsoftTeams.initialize();
+            //var hash = window.location.hash;
+            const params = new URLSearchParams(window.location.search);
+            var data = params.getAll('url');
+
+            $.i18n()
+            .load({
+                en: `./scripts/locales/en.json`,
+                ja: `./scripts/locales/ja.json`,
+                hi: `./scripts/locales/hi.json`,
+            })
+            .done(function () {
+                $.i18n().locale = params.get('lang');
+                $.i18n().options.fallbackLocale = params.get('lang');
+                console.log($.i18n().locale, $.i18n());
+                $('html').i18n();
+            });
+
+            //window.location.href = decodedUrl
+            if (data == "helpInfo") {
+                document.getElementById('location').style.display = 'none';
+                document.getElementById('find').style.display = 'none';
+                document.getElementById('apstatus').style.display = 'none';
+            } else if (data == "findInfo") {
+                document.getElementById('location').style.display = 'none';
+                document.getElementById('help').style.display = 'none';
+                document.getElementById('apstatus').style.display = 'none';
+            } else if (data == "locationInfo") {
+                document.getElementById('help').style.display = 'none';
+                document.getElementById('find').style.display = 'none';
+                document.getElementById('apstatus').style.display = 'none';
+
+            } else if (data == "apstatusInfo") {
+                document.getElementById('location').style.display = 'none';
+                document.getElementById('find').style.display = 'none';
+                document.getElementById('help').style.display = 'none';
+
+            }
+        }) 
+            
+    </script>
+
+</body>
+
+</html>

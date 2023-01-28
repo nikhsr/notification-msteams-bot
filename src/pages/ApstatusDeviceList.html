@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Location</title>
+    <script src="https://statics.teams.cdn.office.net/sdk/v1.5.2/js/MicrosoftTeams.min.js"
+        asp-append-version="true"></script>
+    <script src="scripts/swipe.js"></script>
+    <link rel="stylesheet" href="//code.jquery.com/mobile/1.5.0-alpha.1/jquery.mobile-1.5.0-alpha.1.min.css">
+    <script src="//code.jquery.com/jquery-3.2.1.min.js"></script>
+    <script src="//code.jquery.com/mobile/1.5.0-alpha.1/jquery.mobile-1.5.0-alpha.1.min.js"></script>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <style>
+        div {
+            padding: 15px;
+        }
+    </style>
+
+</head>
+
+<body>
+
+    <div id="apstatusUpList">
+
+    </div>
+
+    <div id="apstatusDownList">
+
+    </div>
+
+    <script>
+
+   
+        microsoftTeams.initialize();
+        //var hash = window.location.hash;
+        const params = new URLSearchParams(window.location.search);
+        var data = params.getAll('url');
+
+        if(data == "apstatusUpList"){
+
+            var uplist = window.atob(params.getAll('data'));
+            document.getElementById('apstatusDownList').style.display='none';
+
+            const uplistArray = uplist.split(",");
+            uplistArray.forEach((device)=>{
+                var node = document.createElement("LI");                
+                var textnode = document.createTextNode(device);         
+                node.appendChild(textnode);                           
+                document.getElementById("apstatusUpList").appendChild(node);  
+            })
+            
+
+        } else if(data == "apstatusDownList"){
+
+            var downlist = window.atob(params.getAll('data'));
+            document.getElementById('apstatusUpList').style.display='none';
+            
+            const downlistArray = downlist.split(",");
+            downlistArray.forEach((device)=>{
+                var node = document.createElement("LI");                
+                var textnode = document.createTextNode(device);         
+                node.appendChild(textnode);                           
+                document.getElementById("apstatusDownList").appendChild(node);  
+            })
+
+        }
+
+    </script>
+
+</body>
+
+</html>

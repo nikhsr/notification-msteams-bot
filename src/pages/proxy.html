@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Location</title>
+    <script src="https://statics.teams.cdn.office.net/sdk/v1.5.2/js/MicrosoftTeams.min.js"
+        asp-append-version="true"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <link rel="stylesheet/scss" src="./styles/success.scss">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bcryptjs/2.2.0/bcrypt.js"></script>
+    <script src="bcrypt.js"></script>
+
+    <style>
+    </style>
+</head>
+
+<body>
+    <div id="master" class="color-line">
+    </div>
+    <script>
+        $(document).ready(function () {
+            microsoftTeams.initialize();
+            const params = new URLSearchParams(window.location.search);
+
+            this.contentPath=params.get('contentPath');
+            this.cid = params.get('cid');
+            this.locationId = params.get('locationId');
+            this.cameraId = params.get('cameraId');
+   
+            getAllCamerasinZone(this.cid);
+
+            var webPath=window.location.href.split("/");
+
+            webPath.pop();
+            let newImgPath=webPath.join("/");
+
+            function getAllCamerasinZone(cid) {
+                $.ajax(
+                    {
+                        type: "GET",
+                        url: newImgPath + "/fetchcamera/" + cid+"?locationId="+this.locationId,
+                        contentType: "application/json; charset=utf-8",
+                        crossDomain: true,
+                        dataType: "json",
+                        success: function (data, status, jqXHR) {
+                            console.log(data);
+                            var res;
+                            for (let i = 0; i < data.data.length; i++) {
+                                      console.log("The number is " + data.data[i].name);
+                                      if(data.data[i].name === this.cameraId){
+                                              res = data.data[i];
+                                      }
+                            }
+                        console.log(res);
+                        if(res!= undefined || res!=null){
+                                var secret = res.secret;
+                                var user = res.user;
+                                var websocketURL = res.websocketUrl;
+
+                        genSalt().then(salt=>{
+                            genHash(secret, salt).then((value)=>{
+                                        console.log(value);
+                                var url = `${websocketURL}&token=${user}^*^${value}`;
+                                window.location.href = url;
+                        })
+                        })
+                   }
+                },
+                        error: function (jqXHR, status) {
+                            console.log(jqXHR);
+                        }
+                    })
+            };
+
+            var bcrypt = dcodeIO.bcrypt;
+            // first generate a random salt
+            function genSalt() {
+                return new Promise((resolve, reject) => {
+                    bcrypt.genSalt(12, function (err, salt) {
+                        if (err) {
+                            reject(err);
+                        } else {
+                            resolve(salt);
+                        }
+                    });
+                });
+            }
+
+            // hash the password with the salt
+            function genHash(password, salt) {
+                return new Promise((resolve, reject) => {
+                    bcrypt.hash(password, salt, function (err, hash) {
+                        if (err) {
+                            reject(err);
+                        } else {
+                            resolve(hash);
+                        }
+                    });
+                });
+            }
+        });
+    </script>
+
+</body>
+
+</html>

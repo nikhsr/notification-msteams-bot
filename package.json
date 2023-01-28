@@ -1,0 +1,60 @@
+{
+  "name": "notification-bot",
+  "version": "1.0.0",
+  "description": "This is MS teams bot for notification",
+  "main": "index.js",
+  "dependencies": {
+    "@microsoft/microsoft-graph-client": "^3.0.2",
+    "@zoomus/websdk": "^2.3.5",
+    "adaptive-expressions": "^4.14.1",
+    "adaptivecards-templating": "^2.1.0",
+    "async": "^2.6.0",
+    "aws-sdk": "^2.949.0",
+    "axios": "^0.24.0",
+    "body-parser": "^1.18.2",
+    "botbuilder": "^4.15.0",
+    "botbuilder-dialogs": "~4.15.0",
+    "btoa": "^1.2.1",
+    "config": "^1.30.0",
+    "cryptojs": "^2.5.3",
+    "escape-html": "^1.0.3",
+    "express": "^4.16.2",
+    "express-handlebars": "^3.0.0",
+    "http": "0.0.1-security",
+    "i18n": "^0.10.0",
+    "isomorphic-fetch": "^3.0.0",
+    "jira-client": "^8.0.0",
+    "jsrsasign": "^10.5.15",
+    "kloudspot-analytics-node-sdk": "^1.0.5",
+    "moment": "^2.24.0",
+    "mongodb": "^3.7.3",
+    "mongoose": "^6.3.2",
+    "ngrok": "^4.2.2",
+    "node-cron": "^3.0.0",
+    "moment-timezone": "^0.5.37",
+    "puppeteer": "1.12.2",
+    "querystring": "^0.2.0",
+    "random-number-csprng": "^1.0.2",
+    "request-promise": "^4.2.2",
+    "restify": "^8.6.0",
+    "rsa-pem-from-mod-exp": "^0.8.4",
+    "serve-favicon": "^2.4.0",
+    "url-join": "^4.0.0",
+    "uuid": "^3.2.1",
+    "winston": "^3.0.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nikhsr/notification-msteams-bot.git"
+  },
+  "author": "Nikhil ram (nikhilram1997@gmail.com)",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/nikhsr/notification-msteams-bot/issues"
+  },
+  "homepage": "https://github.com/nikhsr/notification-msteams-bot#readme"
+}

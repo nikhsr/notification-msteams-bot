@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Microsoft Teams Hello World Sample App</title>
+    <link rel="stylesheet" type="text/css" href="/styles/msteams-16.css">
+    <link rel="stylesheet" type="text/css" href="/styles/custom.css">
+    <script src="https://unpkg.com/@microsoft/teams-js@1.4.2/dist/MicrosoftTeams.min.js" integrity="sha384-DcoNUuQTjpW5Sw3msonn/2ojgtNvtC5fCGd5U9RUpL3g1hla1LzHz8I9YIYSXe6q" crossorigin="anonymous"></script>
+    <script src="/scripts/teamsapp.js"></script>
+</head>
+
+<body class="theme-light">
+    <div class="surface">
+        <div class="panel">
+        	<div class="font-semibold font-title">Hello there</div>
+			<p>Welcome to Kloudspot. You need to authenticate to Kloudspot to start using this app.</p>
+			<p>Custom variable (foo): {{foo}}</p>
+			<p>BotID: {{appId}}</p>
+			<div id="tokenwrapper" style="display: none">
+				<b>Token</b>: <span id="token"></span>
+			</div>
+        </div>
+    </div>
+</body>
+
+</html>

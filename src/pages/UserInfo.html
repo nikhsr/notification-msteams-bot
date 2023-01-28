@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>User Info</title>
+    <script src="https://statics.teams.cdn.office.net/sdk/v1.5.2/js/MicrosoftTeams.min.js" asp-append-version="true"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" />
+    <link rel="stylesheet/scss" src="./styles/success.scss" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.17.1/moment.min.js"></script>
+    <script src="./scripts/i18n-plugin/CLDRPluralRuleParser.js"></script>
+    <script src="./scripts/i18n-plugin/jquery.i18n.js"></script>
+    <script src="./scripts/i18n-plugin/jquery.i18n.messagestore.js"></script>
+    <script src="./scripts/i18n-plugin/jquery.i18n.fallbacks.js"></script>
+    <script src="./scripts/i18n-plugin/jquery.i18n.language.js"></script>
+    <script src="./scripts/i18n-plugin/jquery.i18n.parser.js"></script>
+    <script src="./scripts/i18n-plugin/jquery.i18n.emitter.js"></script>
+    <script src="./scripts/i18n-plugin/jquery.i18n.emitter.bidi.js"></script>
+    <style>
+      body {
+        margin: 0;
+      }
+      .color-line {
+        background: #f7f9fa;
+        height: 6px;
+        background-image: -webkit-linear-gradient(
+          left,
+          #34495e,
+          #34495e 25%,
+          #9b59b6 25%,
+          #9b59b6 35%,
+          #3498db 35%,
+          #3498db 45%,
+          #62cb31 45%,
+          #62cb31 55%,
+          #ffb606 55%,
+          #ffb606 65%,
+          #e67e22 65%,
+          #e67e22 75%,
+          #e74c3c 85%,
+          #e74c3c 85%,
+          #c0392b 85%,
+          #c0392b 100%
+        );
+        background-image: -moz-linear-gradient(
+          left,
+          #34495e,
+          #34495e 25%,
+          #9b59b6 25%,
+          #9b59b6 35%,
+          #3498db 35%,
+          #3498db 45%,
+          #62cb31 45%,
+          #62cb31 55%,
+          #ffb606 55%,
+          #ffb606 65%,
+          #e67e22 65%,
+          #e67e22 75%,
+          #e74c3c 85%,
+          #e74c3c 85%,
+          #c0392b 85%,
+          #c0392b 100%
+        );
+        background-image: -ms-linear-gradient(
+          left,
+          #34495e,
+          #34495e 25%,
+          #9b59b6 25%,
+          #9b59b6 35%,
+          #3498db 35%,
+          #3498db 45%,
+          #62cb31 45%,
+          #62cb31 55%,
+          #ffb606 55%,
+          #ffb606 65%,
+          #e67e22 65%,
+          #e67e22 75%,
+          #e74c3c 85%,
+          #e74c3c 85%,
+          #c0392b 85%,
+          #c0392b 100%
+        );
+        background-image: linear-gradient(
+          to right,
+          #34495e,
+          #34495e 25%,
+          #9b59b6 25%,
+          #9b59b6 35%,
+          #3498db 35%,
+          #3498db 45%,
+          #62cb31 45%,
+          #62cb31 55%,
+          #ffb606 55%,
+          #ffb606 65%,
+          #e67e22 65%,
+          #e67e22 75%,
+          #e74c3c 85%,
+          #e74c3c 85%,
+          #c0392b 85%,
+          #c0392b 100%
+        );
+        background-size: 100% 6px;
+        background-position: 50% 100%;
+        background-repeat: no-repeat;
+      }
+
+      iframe {
+        width: 92%;
+        height: 520px;
+        margin: 0px auto;
+        display: block;
+        border-style: none;
+        padding-top: 24px;
+      }
+
+      .border {
+        border-style: solid;
+        border-color: #00586e;
+      }
+      .loader {
+        border: 16px solid #f3f3f3;
+        /* Light grey */
+        border-top: 16px solid #3498db;
+        /* Blue */
+        border-radius: 50%;
+        width: 120px;
+        height: 120px;
+        animation: spin 2s linear infinite;
+      }
+
+      @keyframes spin {
+        0% {
+          transform: rotate(0deg);
+        }
+
+        100% {
+          transform: rotate(360deg);
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="container">
+      <br />
+
+      <div
+        class="row"
+        style="
+          background: rgba(239, 239, 239, 0.7099999785423279);
+          margin-top: 6px;
+          margin-bottom: 24px;
+          margin-left: 0px;
+          margin-right: 0px;
+          padding: 40px;
+        "
+      >
+        <div class="col-sm-4 col-md-4 col-lg-4">
+          <img
+            id="user-image"
+            src="https://cdn2.iconfinder.com/data/icons/circle-icons-1/64/profle-256.png"
+            style="width: 100px; height: 100px; position: relative; border-radius: 50%; margin-left: 10%"
+            alt=""
+          />
+        </div>
+        <div class="col-sm-8 col-md-8 col-lg-8" id="user-info"></div>
+      </div>
+      <div
+        class="row"
+        style="
+          background: rgba(239, 239, 239, 0.7099999785423279);
+          margin-top: 6px;
+          margin-bottom: 24px;
+          margin-left: 0px;
+          margin-right: 0px;
+          padding: 20px;
+        "
+      >
+        <div class="col-sm-12 col-md-12 col-lg-12" style="font-size: 20px; margin-left: 4%" id="zone-name"></div>
+        <div class="col-sm-12 col-md-12 col-lg-12" style="font-size: 13px; margin-left: 4%" id="device_last_seen"></div>
+        <div class="col-sm-12 col-md-12 col-lg-12">
+          <div>
+            <center id="loading" style="font-size: 24px; font-weight: 600px; margin: 130px">
+              <div class="loader"></div>
+              <div id="device-location"></div>
+            </center>
+            <iframe id="niframe" src="" frameborder="0"></iframe><br />
+            <img id="mapImg" style="height: 520px; width: 620px" src="" alt="" />
+          </div>
+        </div>
+      </div>
+    </div>
+    <script>
+      this.swipeLeftCount = 0;
+      this.swipeRightCount = 0;
+      document.addEventListener('DOMContentLoaded', function (event) {
+        document.addEventListener('touchstart', handleTouchStart, false);
+        document.addEventListener('touchmove', handleTouchMove, false);
+        var xDown = null;
+        var yDown = null;
+        function getTouches(evt) {
+          return (
+            evt.touches || // browser API
+            evt.originalEvent.touches
+          );
+        }
+        function handleTouchStart(evt) {
+          const firstTouch = getTouches(evt)[0];
+          xDown = firstTouch.clientX;
+          yDown = firstTouch.clientY;
+        }
+        function handleTouchMove(evt) {
+          if (!xDown || !yDown) {
+            return;
+          }
+          var xUp = evt.touches[0].clientX;
+          var yUp = evt.touches[0].clientY;
+          var xDiff = xDown - xUp;
+          var yDiff = yDown - yUp;
+          if (Math.abs(xDiff) > Math.abs(yDiff)) {
+            if (xDiff > 0) {
+              ++this.swipeRightCount;
+            } else {
+              /* left swipe */
+              ++this.swipeLeftCount;
+              this.initiatePublish();
+            }
+          }
+
+          /* reset values */
+          xDown = null;
+          yDown = null;
+        }
+
+        document.onkeyup = function (event) {
+          if (event.key === 27 || event.key === 'Escape') {
+            microsoftTeams.tasks.submitTask(null);
+          }
+        };
+      });
+
+      $(document).ready(function () {
+        microsoftTeams.initialize();
+        /* Storing user's device details in a variable*/
+        let details = navigator.userAgent;
+
+        /* Creating a regular expression 
+            containing some mobile devices keywords 
+            to search it in details string*/
+        let regexp = /android|iphone|kindle|ipad/i;
+
+        /* Using test() method to search regexp in details
+            it returns boolean value*/
+        var webPath = window.location.href.split('?')[0].split('/');
+
+        webPath.pop();
+        let newImgPath = webPath.join('/');
+        let isMobileDevice = regexp.test(details);
+        const params = new URLSearchParams(window.location.search);
+        this.cid = params.get('cid');
+        this.data = params.get('data');
+        this.data = JSON.parse(this.data)[0];
+        console.log(this.data);
+
+        this.payload = {
+          content: this.decodedUrl,
+        };
+
+        $.i18n()
+          .load({
+            en: `./scripts/locales/en.json`,
+            ja: `./scripts/locales/ja.json`,
+            hi: `./scripts/locales/hi.json`,
+          })
+          .done(function () {
+            $.i18n().locale = params.get('lang');
+            $.i18n().options.fallbackLocale = params.get('lang');
+            console.log($.i18n().locale, $.i18n());
+            $('html').i18n();
+          });
+
+        document.getElementById('user-info').innerHTML = ` <div class="row" style="font-size: 25px">
+                <b>${this.data.name}</b>
+              </div>
+              <div class="row" style="font-size: 20px">${this.data.department}</div>
+              <div class="row" style="font-size: 20px">
+                ${this.data.email}
+              </div>`;
+        $('#mapImg').hide();
+        $('#niframe').hide();
+        getDeviceForUser(this.data.email, this.cid);
+        getUserImage(this.data.profileIconId, this.cid);
+
+        function getDeviceForUser(email, cid) {
+          $.ajax({
+            type: 'GET',
+            url: newImgPath + `/getdevices/${cid}/${email}`,
+            crossDomain: true,
+            dataType: 'json',
+            headers: {
+              'Access-Control-Allow-Origin': '*',
+              contentType: 'application/json; charset=utf-8',
+              'Access-Control-Allow-Headers': '*',
+            },
+            success: function (data, status, jqXHR) {
+              console.log(data, 'Device Info');
+              document.getElementById('zone-name').innerHTML = `${data.data.siteName} > ${data.data.floorName} > ${data.data.zoneName}`;
+              document.getElementById('device_last_seen').innerHTML = `<span >${$.i18n('last_seen',data.data.mac,moment(data.data.lastSeenHere).fromNow())}</span>`;
+              if (data) {
+                console.log(cid);
+                // TO-DO: check for error value jqXHR.responseJSON.data
+                document.getElementById('device-location').innerHTML = data.message;
+                getSnapshotForWidget(data.data.floorId, data.data.mac, cid);
+              }
+              $('html').i18n();
+            },
+            error: function (jqXHR, status) {
+              console.log(jqXHR);
+              $('.loader').hide();
+              document.getElementById('loading').style.margin = '160px';
+              document.getElementById('device-location').innerHTML = '<div>' + jqXHR.responseJSON.data + '</div>';
+            },
+          });
+        }
+
+        function getSnapshotForWidget(locationId, keyword, cid) {
+          console.log(locationId, keyword, cid);
+
+          $.ajax({
+            type: 'GET',
+            url: newImgPath + `/getwidgetsnapshot/${cid}/${locationId}/${keyword}`,
+            crossDomain: true,
+            dataType: 'json',
+            headers: {
+              'Access-Control-Allow-Origin': '*',
+              contentType: 'application/json; charset=utf-8',
+              'Access-Control-Allow-Headers': '*',
+            },
+            success: function (data, status, jqXHR) {
+              console.log(data);
+              if (isMobileDevice) {
+                $('#niframe').show();
+                document.getElementById('niframe').setAttribute('src', data.data.url);
+              } else {
+                $('#mapImg').show();
+                document.getElementById('mapImg').setAttribute('src', newImgPath + '/tmpResources/' + data.data.path);
+              }
+              $('#loading').hide();
+              $('#device-location').hide();
+              $('#loader').hide();
+            },
+            error: function (jqXHR, status) {
+              console.log(jqXHR);
+              $('#mapImg').hide();
+              $('#niframe').hide();
+              $('.loader').hide();
+              // TO-DO: check for error value jqXHR.responseJSON.data
+              document.getElementById('device-location').innerHTML = '<center>' + jqXHR.responseJSON.data + '</center>';
+            },
+          });
+        }
+
+        function getUserImage(profileIconId, cid) {
+          if (!profileIconId) {
+            document
+              .getElementById('user-image')
+              .setAttribute('src', `https://cdn2.iconfinder.com/data/icons/circle-icons-1/64/profle-256.png`);
+            return;
+          }
+          $.ajax({
+            type: 'GET',
+            url: newImgPath + `/getUserImage/${cid}/${profileIconId}`,
+            headers: {
+              contentType: '*'
+            },
+            success: function (data, status, jqXHR) {
+              console.log(data);
+              document.getElementById('user-image').setAttribute('src', data.data);
+              // return data
+            },
+            error: function (jqXHR, status) {
+              console.log(jqXHR);
+              document
+                .getElementById('user-image')
+                .setAttribute('src', `https://cdn2.iconfinder.com/data/icons/circle-icons-1/64/profle-256.png`);
+            },
+          });
+        }
+      });
+    </script>
+  </body>
+</html>

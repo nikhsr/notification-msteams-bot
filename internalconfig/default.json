@@ -1,0 +1,8 @@
+{
+    "bot": {
+        "appId": "e158e157-b990-46dd-bf70-12149e854fb6",
+        "appPassword": "R-H7Q~ioHErMlF1MTVodDX-MJPsGnXirWLrzQ"
+    },
+    "storage": "memory",
+    "host": "https://ae21-106-51-88-195.ngrok.io"
+}
